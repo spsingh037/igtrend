@@ -86,69 +86,85 @@ class InstaTrendOptimizer:
             "algorithm_insight": self.simulate_algorithm_insight()
         }
 
-# Simplified Sci-Fi UI
+# Sci-Fi UI with Fixed CSS
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
-    .stApp {
-        background: linear-gradient(135deg, #0d1b2a, #1b263b);
-        color: #e0e1dd;
-        font-family: 'Orbitron', sans-serif;
+    /* Ensure the entire app uses the sci-fi theme */
+    div[data-testid="stAppViewContainer"] {
+        background: linear-gradient(135deg, #0d1b2a, #1b263b) !important;
+        color: #e0e1dd !important;
+        font-family: 'Orbitron', sans-serif !important;
     }
-    .stTextInput>label, .stSelectbox>label, .stTextArea>label {
-        color: #00ffcc;
-        font-size: 18px;
-        font-weight: bold;
-        text-shadow: 0 0 10px #00ffcc;
+    /* Title and text styling */
+    h1, h2, h3, h4, h5, h6, p {
+        color: #e0e1dd !important;
+        font-family: 'Orbitron', sans-serif !important;
     }
-    .stTextInput>div>input, .stTextArea>div>textarea {
-        background-color: #1b263b;
-        color: #00ffcc;
-        border: 2px solid #415a77;
-        border-radius: 10px;
-        padding: 12px;
-        box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+    /* Form labels */
+    div[data-testid="stTextInput"] label,
+    div[data-testid="stSelectbox"] label,
+    div[data-testid="stTextArea"] label {
+        color: #00ffcc !important;
+        font-size: 18px !important;
+        font-weight: bold !important;
+        text-shadow: 0 0 10px #00ffcc !important;
     }
-    .stSelectbox>div>div {
-        background-color: #1b263b;
-        color: #00ffcc;
-        border: 2px solid #415a77;
-        border-radius: 10px;
+    /* Input fields */
+    div[data-testid="stTextInput"] input,
+    div[data-testid="stTextArea"] textarea {
+        background-color: #1b263b !important;
+        color: #00ffcc !important;
+        border: 2px solid #415a77 !important;
+        border-radius: 10px !important;
+        padding: 12px !important;
+        box-shadow: 0 0 15px rgba(0, 255, 204, 0.5) !important;
     }
-    .stButton>button {
-        background: linear-gradient(45deg, #ff0066, #ffcc00);
-        color: #ffffff;
-        border-radius: 12px;
-        padding: 12px 25px;
-        font-size: 18px;
-        font-weight: bold;
-        border: none;
-        box-shadow: 0 0 20px rgba(255, 0, 102, 0.7);
+    /* Selectbox */
+    div[data-testid="stSelectbox"] div[role="combobox"] {
+        background-color: #1b263b !important;
+        color: #00ffcc !important;
+        border: 2px solid #415a77 !important;
+        border-radius: 10px !important;
     }
-    .stButton>button:hover {
-        background: linear-gradient(45deg, #ff3399, #ffeb3b);
-        box-shadow: 0 0 30px rgba(255, 51, 153, 1);
+    /* Button */
+    div[data-testid="stFormSubmitButton"] button {
+        background: linear-gradient(45deg, #ff0066, #ffcc00) !important;
+        color: #ffffff !important;
+        border-radius: 12px !important;
+        padding: 12px 25px !important;
+        font-size: 18px !important;
+        font-weight: bold !important;
+        border: none !important;
+        box-shadow: 0 0 20px rgba(255, 0, 102, 0.7) !important;
     }
-    .stSuccess {
-        background-color: #00cc99;
-        border-radius: 10px;
-        padding: 15px;
-        color: #ffffff;
+    div[data-testid="stFormSubmitButton"] button:hover {
+        background: linear-gradient(45deg, #ff3399, #ffeb3b) !important;
+        box-shadow: 0 0 30px rgba(255, 51, 153, 1) !important;
     }
-    .stSubheader {
-        color: #ff0066;
-        font-size: 22px;
-        font-weight: bold;
-        text-shadow: 0 0 15px #ff0066;
+    /* Success message */
+    div[data-testid="stSuccess"] {
+        background-color: #00cc99 !important;
+        border-radius: 10px !important;
+        padding: 15px !important;
+        color: #ffffff !important;
     }
+    /* Subheader */
+    h3 {
+        color: #ff0066 !important;
+        font-size: 22px !important;
+        font-weight: bold !important;
+        text-shadow: 0 0 15px #ff0066 !important;
+    }
+    /* Output box */
     .output-box {
-        background: rgba(27, 38, 59, 0.8);
-        border: 2px solid #00ffcc;
-        border-radius: 12px;
-        padding: 20px;
-        margin-top: 15px;
-        box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+        background: rgba(27, 38, 59, 0.8) !important;
+        border: 2px solid #00ffcc !important;
+        border-radius: 12px !important;
+        padding: 20px !important;
+        margin-top: 15px !important;
+        box-shadow: 0 0 20px rgba(0, 255, 204, 0.3) !important;
     }
     </style>
 """, unsafe_allow_html=True)
