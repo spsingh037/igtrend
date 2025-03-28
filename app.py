@@ -45,9 +45,9 @@ class InstaTrendOptimizer:
         product_tags = [f"#{self.product_name}", f"#{self.product_name}Addict", f"#{self.product_name}Vibes"]
         if self.description:
             desc_words = self.description.split()
-            desc_tags = [f"#{word}" for word in desc_words if len(word) > 3][:3]  # 3 hashtags from description
-            return niche_tags + product_tags + desc_tags + self.trends[:4]  # Total 10+
-        return niche_tags + product_tags + self.trends[:6]  # Total 10+
+            desc_tags = [f"#{word}" for word in desc_words if len(word) > 3][:3]
+            return niche_tags + product_tags + desc_tags + self.trends[:4]
+        return niche_tags + product_tags + self.trends[:6]
 
     def generate_seo_keywords(self):
         base_keywords = [self.product_name, self.niche, "future", "trend"]
@@ -145,7 +145,6 @@ st.markdown("""
 st.title("🚀 InstaVerse Optimizer 🚀")
 st.write("Power up your Instagram with sci-fi precision!")
 
-# Form with sci-fi styling
 with st.form(key="optimizer_form"):
     st.markdown("### Enter Your Coordinates")
     username = st.text_input("Username", placeholder="e.g., cyberuser_x")
@@ -156,7 +155,6 @@ with st.form(key="optimizer_form"):
                               placeholder="e.g., unveiling my latest tech masterpiece", height=120)
     submit_button = st.form_submit_button(label="Engage Hyperdrive")
 
-# Output section
 if submit_button:
     if niche and product_name:
         optimizer = InstaTrendOptimizer(niche, product_name, description if description else None)
@@ -183,5 +181,4 @@ if submit_button:
     else:
         st.error("Core systems require Niche and Product Name input!")
 
-# Footer
 st.markdown("<hr><p style='text-align: center; color: #ffcc00;'>Crafted in the Cosmos for Instagram Pioneers 🌠</p>", unsafe_allow_html=True)
