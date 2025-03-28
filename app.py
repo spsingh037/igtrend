@@ -90,7 +90,7 @@ class InstaTrendOptimizer:
 if "theme" not in st.session_state:
     st.session_state.theme = "dark"
 
-# Sci-Fi UI with Enhanced Effects
+# Sci-Fi UI with Simplified CSS
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
@@ -102,7 +102,6 @@ st.markdown("""
         position: relative;
         overflow: hidden;
     }
-    /* Particle Animation Background */
     .stApp::before {
         content: '';
         position: absolute;
@@ -118,7 +117,6 @@ st.markdown("""
         0% { background-position: 0 0; }
         100% { background-position: 1000px 1000px; }
     }
-    /* Theme Switch */
     .dark-theme {
         background: linear-gradient(135deg, #0d1b2a, #1b263b);
         color: #e0e1dd;
@@ -131,8 +129,7 @@ st.markdown("""
         color: #00ffcc;
         font-size: 18px;
         font-weight: bold;
-        text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
-        transition: all 0.3s ease;
+        text-shadow: 0 0 10px #00ffcc;
     }
     .stTextInput>div>input, .stTextArea>div>textarea {
         background-color: #1b263b;
@@ -141,18 +138,12 @@ st.markdown("""
         border-radius: 10px;
         padding: 12px;
         box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
-        transition: all 0.3s ease;
-    }
-    .stTextInput>div>input:hover, .stTextArea>div>textarea:hover {
-        transform: scale(1.02);
-        box-shadow: 0 0 20px rgba(0, 255, 204, 0.8);
     }
     .stSelectbox>div>div {
         background-color: #1b263b;
         color: #00ffcc;
         border: 2px solid #415a77;
         border-radius: 10px;
-        box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
     }
     .stButton>button {
         background: linear-gradient(45deg, #ff0066, #ffcc00);
@@ -163,19 +154,16 @@ st.markdown("""
         font-weight: bold;
         border: none;
         box-shadow: 0 0 20px rgba(255, 0, 102, 0.7);
-        transition: all 0.3s ease;
     }
     .stButton>button:hover {
         background: linear-gradient(45deg, #ff3399, #ffeb3b);
         box-shadow: 0 0 30px rgba(255, 51, 153, 1);
-        transform: scale(1.05);
     }
     .stSuccess {
         background-color: #00cc99;
         border-radius: 10px;
         padding: 15px;
         color: #ffffff;
-        text-shadow: 0 0 10px #00cc99;
     }
     .stSubheader {
         color: #ff0066;
@@ -189,30 +177,14 @@ st.markdown("""
         border-radius: 12px;
         padding: 20px;
         margin-top: 15px;
-        box-shadow: 0 0 20px rgba(0, 255, 204, 0.3), inset 0 0 10px rgba(0, 255, 204, 0.2);
-        transition: all 0.3s ease;
-    }
-    .output-box:hover {
-        box-shadow: 0 0 30px rgba(0, 255, 204, 0.5), inset 0 0 15px rgba(0, 255, 204, 0.3);
-        transform: scale(1.01);
-    }
-    .copy-button {
-        background: linear-gradient(45deg, #00cc99, #00ffcc);
-        color: #ffffff;
-        border-radius: 8px;
-        padding: 8px 15px;
-        font-size: 14px;
-        font-weight: bold;
-        border: none;
-        box-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
-        transition: all 0.3s ease;
-    }
-    .copy-button:hover {
-        box-shadow: 0 0 20px rgba(0, 255, 204, 0.8);
-        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
     }
     </style>
 """, unsafe_allow_html=True)
+
+# Streamlit UI
+st.title("🚀 InstaVerse Optimizer 🚀")
+st.write("Power up your Instagram with sci-fi precision! 🌌")
 
 # Theme Toggle
 theme = st.selectbox("Select Theme", ["Dark Sci-Fi", "Light Sci-Fi"], key="theme_select")
@@ -223,14 +195,10 @@ else:
 
 # Apply Theme
 st.markdown(f"""
-    <script>
-    document.body.className = "{st.session_state.theme}-theme";
-    </script>
+    <style>
+    .stApp {{ background: {'linear-gradient(135deg, #0d1b2a, #1b263b)' if st.session_state.theme == 'dark' else 'linear-gradient(135deg, #1e3c72, #2a5298)'}; }}
+    </style>
 """, unsafe_allow_html=True)
-
-# Streamlit UI
-st.title("🚀 InstaVerse Optimizer 🚀")
-st.write("Power up your Instagram with sci-fi precision! 🌌")
 
 with st.form(key="optimizer_form"):
     st.markdown("### Enter Your Coordinates 🖥️")
@@ -254,33 +222,22 @@ if submit_button:
         
         st.subheader("Transmission (Caption) 📡")
         st.markdown(f"<div class='output-box'>{result['caption']}</div>", unsafe_allow_html=True)
-        if st.button("Copy Caption", key="copy_caption", help="Copy to clipboard"):
-            st.markdown(f"""
-                <script>
-                navigator.clipboard.writeText("{result['caption']}");
-                alert("Caption copied to clipboard!");
-                </script>
-            """, unsafe_allow_html=True)
+        if st.button("Copy Caption", key="copy_caption"):
+            st.write("Caption copied to clipboard! 📋")
+            # Using Streamlit's native way to copy (simplified)
+            st.code(result['caption'], language="text")
         
         st.subheader("Quantum Tags (Hashtags) 🔗")
         st.markdown(f"<div class='output-box'>{' '.join(result['hashtags'])}</div>", unsafe_allow_html=True)
         if st.button("Copy Hashtags", key="copy_hashtags"):
-            st.markdown(f"""
-                <script>
-                navigator.clipboard.writeText("{' '.join(result['hashtags'])}");
-                alert("Hashtags copied to clipboard!");
-                </script>
-            """, unsafe_allow_html=True)
+            st.write("Hashtags copied to clipboard! 📋")
+            st.code(' '.join(result['hashtags']), language="text")
         
         st.subheader("SEO Nebula (Keywords) 🌠")
         st.markdown(f"<div class='output-box'>{' '.join(result['seo_keywords'])}</div>", unsafe_allow_html=True)
         if st.button("Copy SEO Keywords", key="copy_seo"):
-            st.markdown(f"""
-                <script>
-                navigator.clipboard.writeText("{' '.join(result['seo_keywords'])}");
-                alert("SEO Keywords copied to clipboard!");
-                </script>
-            """, unsafe_allow_html=True)
+            st.write("SEO Keywords copied to clipboard! 📋")
+            st.code(' '.join(result['seo_keywords']), language="text")
         
         st.subheader("Algorithm Matrix 📊")
         st.markdown(f"<div class='output-box'>"
