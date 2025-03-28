@@ -86,19 +86,20 @@ class InstaTrendOptimizer:
             "algorithm_insight": self.simulate_algorithm_insight()
         }
 
-# Sci-Fi UI with Fixed CSS
+# Sci-Fi UI with More Specific CSS
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
-    /* Ensure the entire app uses the sci-fi theme */
-    div[data-testid="stAppViewContainer"] {
+    /* Target the main app container */
+    div[data-testid="stAppViewContainer"] > div {
         background: linear-gradient(135deg, #0d1b2a, #1b263b) !important;
         color: #e0e1dd !important;
         font-family: 'Orbitron', sans-serif !important;
+        min-height: 100vh !important;
     }
-    /* Title and text styling */
-    h1, h2, h3, h4, h5, h6, p {
+    /* Target all text elements */
+    h1, h2, h3, h4, h5, h6, p, div, span, label {
         color: #e0e1dd !important;
         font-family: 'Orbitron', sans-serif !important;
     }
@@ -122,7 +123,8 @@ st.markdown("""
         box-shadow: 0 0 15px rgba(0, 255, 204, 0.5) !important;
     }
     /* Selectbox */
-    div[data-testid="stSelectbox"] div[role="combobox"] {
+    div[data-testid="stSelectbox"] div[role="combobox"],
+    div[data-testid="stSelectbox"] div[role="combobox"] div {
         background-color: #1b263b !important;
         color: #00ffcc !important;
         border: 2px solid #415a77 !important;
@@ -165,6 +167,11 @@ st.markdown("""
         padding: 20px !important;
         margin-top: 15px !important;
         box-shadow: 0 0 20px rgba(0, 255, 204, 0.3) !important;
+    }
+    /* Ensure footer text is styled */
+    div[data-testid="stMarkdownContainer"] p {
+        color: #ffcc00 !important;
+        text-align: center !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -214,4 +221,4 @@ if submit_button:
     else:
         st.error("Core systems require Niche and Product Name input! ⚠️")
 
-st.markdown("<hr><p style='text-align: center; color: #ffcc00;'>Crafted in the Cosmos for Instagram Pioneers 🌠</p>", unsafe_allow_html=True)
+st.markdown("<hr><p>Crafted in the Cosmos for Instagram Pioneers 🌠</p>", unsafe_allow_html=True)
