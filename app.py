@@ -1,44 +1,4 @@
-import streamlit as st
-import random
-from datetime import datetime
-import time
-
-# Simulated trend database
-trend_database = {
-    "fashion": ["#FashionVibes", "#StyleGoals", "#TrendyLook", "#ChicFuture", "#GlamTech", "chic", "glam", "vogue", "trend", "style"],
-    "tech": ["#TechLife", "#GadgetTrend", "#InnovateNow", "#CyberFuture", "#SmartEra", "smart", "future", "gadget", "techie", "innovation"],
-    "food": ["#FoodLovers", "#TastyBites", "#YummyTrend", "#FlavorRush", "#FoodTech", "delicious", "flavor", "yummy", "taste", "bite"],
-    "fitness": ["#FitLife", "#WorkoutVibes", "#HealthTrend", "#PowerCore", "#FitFuture", "strong", "active", "fit", "health", "energy"],
-    "travel": ["#TravelGoals", "#Wanderlust", "#ExploreNow", "#SpaceJourney", "#GlobeTech", "adventure", "journey", "explore", "travel", "wander"]
-}
-default_trends = ["#Trending", "#ViralNow", "#ExploreMore", "#NextGen", "#FutureNow", "new", "hot", "top", "viral", "trend"]
-
-# Engagement tips database
-engagement_tips = [
-    "Post at 7 PM for maximum reach! 🌌",
-    "Use emojis to boost engagement by 20%! 🚀",
-    "Engage with comments within the first hour! 💬",
-    "Add a question in your caption to spark conversations! ❓",
-    "Use Stories to drive traffic to your post! 📸"
-]
-
-class InstaTrendOptimizer:
-    def __init__(self, niche, product_name, description=None):
-        self.niche = niche.lower()
-        self.product_name = product_name.lower()
-        self.description = description.lower() if description else None
-        self.current_date = datetime.now().strftime("%Y-%m-%d")
-        self.trends = self.fetch_simulated_trends()
-
-    def fetch_simulated_trends(self):
-        return trend_database.get(self.niche, default_trends)
-
-    def generate_caption(self):
-        if self.description:
-            trend_word = random.choice(self.trends).replace("#", "")
-            mood = random.choice(["So futuristic!", "Mind-blowing!", "Next-level stuff!", "Out of this world!"])
-            base = f"Step into the future with this {self.product_name}! {self.description.capitalize()} like never before. " \
-                   f"This is more than just a {self.niche} moment—it’s a cosmic experience waiting to happen. " \
+a cosmic experience waiting to happen. " \
                    f"Embrace the {trend_word} energy and let your vibe resonate across the galaxy. {mood} " \
                    f"Ready to launch this into your feed today, {self.current_date}—are you in?"
         else:
@@ -86,11 +46,7 @@ class InstaTrendOptimizer:
             "algorithm_insight": self.simulate_algorithm_insight()
         }
 
-# Theme Toggle in Session State
-if "theme" not in st.session_state:
-    st.session_state.theme = "dark"
-
-# Sci-Fi UI with Simplified CSS
+# Simplified Sci-Fi UI
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
@@ -99,31 +55,6 @@ st.markdown("""
         background: linear-gradient(135deg, #0d1b2a, #1b263b);
         color: #e0e1dd;
         font-family: 'Orbitron', sans-serif;
-        position: relative;
-        overflow: hidden;
-    }
-    .stApp::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: url('https://www.transparenttextures.com/patterns/stardust.png');
-        opacity: 0.2;
-        animation: particle-move 20s infinite linear;
-    }
-    @keyframes particle-move {
-        0% { background-position: 0 0; }
-        100% { background-position: 1000px 1000px; }
-    }
-    .dark-theme {
-        background: linear-gradient(135deg, #0d1b2a, #1b263b);
-        color: #e0e1dd;
-    }
-    .light-theme {
-        background: linear-gradient(135deg, #1e3c72, #2a5298);
-        color: #ffffff;
     }
     .stTextInput>label, .stSelectbox>label, .stTextArea>label {
         color: #00ffcc;
@@ -186,20 +117,6 @@ st.markdown("""
 st.title("🚀 InstaVerse Optimizer 🚀")
 st.write("Power up your Instagram with sci-fi precision! 🌌")
 
-# Theme Toggle
-theme = st.selectbox("Select Theme", ["Dark Sci-Fi", "Light Sci-Fi"], key="theme_select")
-if theme == "Light Sci-Fi":
-    st.session_state.theme = "light"
-else:
-    st.session_state.theme = "dark"
-
-# Apply Theme
-st.markdown(f"""
-    <style>
-    .stApp {{ background: {'linear-gradient(135deg, #0d1b2a, #1b263b)' if st.session_state.theme == 'dark' else 'linear-gradient(135deg, #1e3c72, #2a5298)'}; }}
-    </style>
-""", unsafe_allow_html=True)
-
 with st.form(key="optimizer_form"):
     st.markdown("### Enter Your Coordinates 🖥️")
     username = st.text_input("Username", placeholder="e.g., cyberuser_x")
@@ -222,22 +139,12 @@ if submit_button:
         
         st.subheader("Transmission (Caption) 📡")
         st.markdown(f"<div class='output-box'>{result['caption']}</div>", unsafe_allow_html=True)
-        if st.button("Copy Caption", key="copy_caption"):
-            st.write("Caption copied to clipboard! 📋")
-            # Using Streamlit's native way to copy (simplified)
-            st.code(result['caption'], language="text")
         
         st.subheader("Quantum Tags (Hashtags) 🔗")
         st.markdown(f"<div class='output-box'>{' '.join(result['hashtags'])}</div>", unsafe_allow_html=True)
-        if st.button("Copy Hashtags", key="copy_hashtags"):
-            st.write("Hashtags copied to clipboard! 📋")
-            st.code(' '.join(result['hashtags']), language="text")
         
         st.subheader("SEO Nebula (Keywords) 🌠")
         st.markdown(f"<div class='output-box'>{' '.join(result['seo_keywords'])}</div>", unsafe_allow_html=True)
-        if st.button("Copy SEO Keywords", key="copy_seo"):
-            st.write("SEO Keywords copied to clipboard! 📋")
-            st.code(' '.join(result['seo_keywords']), language="text")
         
         st.subheader("Algorithm Matrix 📊")
         st.markdown(f"<div class='output-box'>"
