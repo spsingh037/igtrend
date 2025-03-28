@@ -91,13 +91,17 @@ st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
-    /* Target the main app container */
-    div[data-testid="stAppViewContainer"] > div:first-child {
+    /* Target the root container */
+    div[data-testid="stAppViewContainer"] {
         background: linear-gradient(135deg, #0d1b2a, #1b263b) !important;
         color: #e0e1dd !important;
         font-family: 'Orbitron', 'Arial', sans-serif !important;
         min-height: 100vh !important;
         padding: 20px !important;
+    }
+    /* Target the main content area */
+    div[data-testid="stAppViewContainer"] > div {
+        background: transparent !important;
     }
     /* Target all text elements */
     h1, h2, h3, h4, h5, h6, p, div, span, label {
@@ -174,6 +178,10 @@ st.markdown("""
         color: #ffcc00 !important;
         text-align: center !important;
         font-family: 'Orbitron', 'Arial', sans-serif !important;
+    }
+    /* Override Streamlit's default white background */
+    div[data-testid="stVerticalBlock"] {
+        background: transparent !important;
     }
     </style>
 """, unsafe_allow_html=True)
