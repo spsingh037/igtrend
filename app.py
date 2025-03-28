@@ -1,12 +1,52 @@
-a cosmic experience waiting to happen. " \
+import streamlit as st
+import random
+from datetime import datetime
+import time
+
+# Simulated trend database
+trend_database = {
+    "fashion": ["#FashionVibes", "#StyleGoals", "#TrendyLook", "#ChicFuture", "#GlamTech", "chic", "glam", "vogue", "trend", "style"],
+    "tech": ["#TechLife", "#GadgetTrend", "#InnovateNow", "#CyberFuture", "#SmartEra", "smart", "future", "gadget", "techie", "innovation"],
+    "food": ["#FoodLovers", "#TastyBites", "#YummyTrend", "#FlavorRush", "#FoodTech", "delicious", "flavor", "yummy", "taste", "bite"],
+    "fitness": ["#FitLife", "#WorkoutVibes", "#HealthTrend", "#PowerCore", "#FitFuture", "strong", "active", "fit", "health", "energy"],
+    "travel": ["#TravelGoals", "#Wanderlust", "#ExploreNow", "#SpaceJourney", "#GlobeTech", "adventure", "journey", "explore", "travel", "wander"]
+}
+default_trends = ["#Trending", "#ViralNow", "#ExploreMore", "#NextGen", "#FutureNow", "new", "hot", "top", "viral", "trend"]
+
+# Engagement tips database
+engagement_tips = [
+    "Post at 7 PM for maximum reach! 🌌",
+    "Use emojis to boost engagement by 20%! 🚀",
+    "Engage with comments within the first hour! 💬",
+    "Add a question in your caption to spark conversations! ❓",
+    "Use Stories to drive traffic to your post! 📸"
+]
+
+class InstaTrendOptimizer:
+    def __init__(self, niche, product_name, description=None):
+        self.niche = niche.lower()
+        self.product_name = product_name.lower()
+        self.description = description.lower() if description else None
+        self.current_date = datetime.now().strftime("%Y-%m-%d")
+        self.trends = self.fetch_simulated_trends()
+
+    def fetch_simulated_trends(self):
+        return trend_database.get(self.niche, default_trends)
+
+    def generate_caption(self):
+        if self.description:
+            trend_word = random.choice(self.trends).replace("#", "")
+            mood = random.choice(["So futuristic!", "Mind-blowing!", "Next-level stuff!", "Out of this world!"])
+            base = f"Step into the future with this {self.product_name}! {self.description.capitalize()} like never before. " \
+                   f"This is more than just a {self.niche} moment - it's a cosmic experience waiting to happen. " \
                    f"Embrace the {trend_word} energy and let your vibe resonate across the galaxy. {mood} " \
-                   f"Ready to launch this into your feed today, {self.current_date}—are you in?"
+                   f"Ready to launch this into your feed today, {self.current_date} - are you in?"
         else:
             trend_word = random.choice(self.trends).replace("#", "")
             mood = random.choice(["Epic vibes!", "Totally unreal!", "Future-ready!", "Cosmic win!"])
-            base = f"Teleport your {self.niche} game with this {self.product_name}! It’s not just a product, it’s a portal " \
+            base = f"Teleport your {self.niche} game with this {self.product_name}! It's not just a product, it's a portal " \
                    f"to a new dimension of awesomeness. Feel the {trend_word} surge through you as you unlock its power. " \
-                   f"Perfect for fans who live ahead of the curve—this is your ticket to the stars. {mood} " \
+                   f"Perfect for fans who live ahead of the curve - this is your ticket to the stars. {mood} " \
                    f"Beam it up to your Instagram on {self.current_date} and watch it soar!"
         return base
 
