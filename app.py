@@ -92,16 +92,17 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
     /* Target the main app container */
-    div[data-testid="stAppViewContainer"] > div {
+    div[data-testid="stAppViewContainer"] > div:first-child {
         background: linear-gradient(135deg, #0d1b2a, #1b263b) !important;
         color: #e0e1dd !important;
-        font-family: 'Orbitron', sans-serif !important;
+        font-family: 'Orbitron', 'Arial', sans-serif !important;
         min-height: 100vh !important;
+        padding: 20px !important;
     }
     /* Target all text elements */
     h1, h2, h3, h4, h5, h6, p, div, span, label {
         color: #e0e1dd !important;
-        font-family: 'Orbitron', sans-serif !important;
+        font-family: 'Orbitron', 'Arial', sans-serif !important;
     }
     /* Form labels */
     div[data-testid="stTextInput"] label,
@@ -172,6 +173,7 @@ st.markdown("""
     div[data-testid="stMarkdownContainer"] p {
         color: #ffcc00 !important;
         text-align: center !important;
+        font-family: 'Orbitron', 'Arial', sans-serif !important;
     }
     </style>
 """, unsafe_allow_html=True)
