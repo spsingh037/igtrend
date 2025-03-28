@@ -1,6 +1,7 @@
 import streamlit as st
 import random
 from datetime import datetime
+import time
 
 # Simulated trend database
 trend_database = {
@@ -11,6 +12,15 @@ trend_database = {
     "travel": ["#TravelGoals", "#Wanderlust", "#ExploreNow", "#SpaceJourney", "#GlobeTech", "adventure", "journey", "explore", "travel", "wander"]
 }
 default_trends = ["#Trending", "#ViralNow", "#ExploreMore", "#NextGen", "#FutureNow", "new", "hot", "top", "viral", "trend"]
+
+# Engagement tips database
+engagement_tips = [
+    "Post at 7 PM for maximum reach! 🌌",
+    "Use emojis to boost engagement by 20%! 🚀",
+    "Engage with comments within the first hour! 💬",
+    "Add a question in your caption to spark conversations! ❓",
+    "Use Stories to drive traffic to your post! 📸"
+]
 
 class InstaTrendOptimizer:
     def __init__(self, niche, product_name, description=None):
@@ -64,7 +74,8 @@ class InstaTrendOptimizer:
         return {
             "engagement_score": engagement_score,
             "reach_potential": reach_potential,
-            "recommendation": recommendation
+            "recommendation": recommendation,
+            "tip": random.choice(engagement_tips)
         }
 
     def optimize(self):
@@ -75,19 +86,53 @@ class InstaTrendOptimizer:
             "algorithm_insight": self.simulate_algorithm_insight()
         }
 
-# Sci-Fi UI with Custom CSS
+# Theme Toggle in Session State
+if "theme" not in st.session_state:
+    st.session_state.theme = "dark"
+
+# Sci-Fi UI with Enhanced Effects
 st.markdown("""
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
     .stApp {
         background: linear-gradient(135deg, #0d1b2a, #1b263b);
         color: #e0e1dd;
         font-family: 'Orbitron', sans-serif;
+        position: relative;
+        overflow: hidden;
+    }
+    /* Particle Animation Background */
+    .stApp::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://www.transparenttextures.com/patterns/stardust.png');
+        opacity: 0.2;
+        animation: particle-move 20s infinite linear;
+    }
+    @keyframes particle-move {
+        0% { background-position: 0 0; }
+        100% { background-position: 1000px 1000px; }
+    }
+    /* Theme Switch */
+    .dark-theme {
+        background: linear-gradient(135deg, #0d1b2a, #1b263b);
+        color: #e0e1dd;
+    }
+    .light-theme {
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        color: #ffffff;
     }
     .stTextInput>label, .stSelectbox>label, .stTextArea>label {
         color: #00ffcc;
         font-size: 18px;
         font-weight: bold;
-        text-shadow: 0 0 5px #00ffcc;
+        text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
+        transition: all 0.3s ease;
     }
     .stTextInput>div>input, .stTextArea>div>textarea {
         background-color: #1b263b;
@@ -95,13 +140,19 @@ st.markdown("""
         border: 2px solid #415a77;
         border-radius: 10px;
         padding: 12px;
-        box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+        box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+        transition: all 0.3s ease;
+    }
+    .stTextInput>div>input:hover, .stTextArea>div>textarea:hover {
+        transform: scale(1.02);
+        box-shadow: 0 0 20px rgba(0, 255, 204, 0.8);
     }
     .stSelectbox>div>div {
         background-color: #1b263b;
         color: #00ffcc;
         border: 2px solid #415a77;
         border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
     }
     .stButton>button {
         background: linear-gradient(45deg, #ff0066, #ffcc00);
@@ -111,24 +162,26 @@ st.markdown("""
         font-size: 18px;
         font-weight: bold;
         border: none;
-        box-shadow: 0 0 15px rgba(255, 0, 102, 0.5);
+        box-shadow: 0 0 20px rgba(255, 0, 102, 0.7);
+        transition: all 0.3s ease;
     }
     .stButton>button:hover {
         background: linear-gradient(45deg, #ff3399, #ffeb3b);
-        box-shadow: 0 0 20px rgba(255, 51, 153, 0.7);
+        box-shadow: 0 0 30px rgba(255, 51, 153, 1);
+        transform: scale(1.05);
     }
     .stSuccess {
         background-color: #00cc99;
         border-radius: 10px;
         padding: 15px;
         color: #ffffff;
-        text-shadow: 0 0 5px #00cc99;
+        text-shadow: 0 0 10px #00cc99;
     }
     .stSubheader {
         color: #ff0066;
         font-size: 22px;
         font-weight: bold;
-        text-shadow: 0 0 10px #ff0066;
+        text-shadow: 0 0 15px #ff0066;
     }
     .output-box {
         background: rgba(27, 38, 59, 0.8);
@@ -136,49 +189,109 @@ st.markdown("""
         border-radius: 12px;
         padding: 20px;
         margin-top: 15px;
-        box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+        box-shadow: 0 0 20px rgba(0, 255, 204, 0.3), inset 0 0 10px rgba(0, 255, 204, 0.2);
+        transition: all 0.3s ease;
+    }
+    .output-box:hover {
+        box-shadow: 0 0 30px rgba(0, 255, 204, 0.5), inset 0 0 15px rgba(0, 255, 204, 0.3);
+        transform: scale(1.01);
+    }
+    .copy-button {
+        background: linear-gradient(45deg, #00cc99, #00ffcc);
+        color: #ffffff;
+        border-radius: 8px;
+        padding: 8px 15px;
+        font-size: 14px;
+        font-weight: bold;
+        border: none;
+        box-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+        transition: all 0.3s ease;
+    }
+    .copy-button:hover {
+        box-shadow: 0 0 20px rgba(0, 255, 204, 0.8);
+        transform: scale(1.05);
     }
     </style>
 """, unsafe_allow_html=True)
 
+# Theme Toggle
+theme = st.selectbox("Select Theme", ["Dark Sci-Fi", "Light Sci-Fi"], key="theme_select")
+if theme == "Light Sci-Fi":
+    st.session_state.theme = "light"
+else:
+    st.session_state.theme = "dark"
+
+# Apply Theme
+st.markdown(f"""
+    <script>
+    document.body.className = "{st.session_state.theme}-theme";
+    </script>
+""", unsafe_allow_html=True)
+
 # Streamlit UI
 st.title("🚀 InstaVerse Optimizer 🚀")
-st.write("Power up your Instagram with sci-fi precision!")
+st.write("Power up your Instagram with sci-fi precision! 🌌")
 
 with st.form(key="optimizer_form"):
-    st.markdown("### Enter Your Coordinates")
+    st.markdown("### Enter Your Coordinates 🖥️")
     username = st.text_input("Username", placeholder="e.g., cyberuser_x")
     id_type = st.selectbox("ID Type", ["Personal", "Business", "Creator"])
     niche = st.text_input("Niche", placeholder="e.g., fashion, tech, food")
     product_name = st.text_input("Product Name", placeholder="e.g., sneakers, quantumphone")
     description = st.text_area("Optional: Mission Brief (Post/Reel Description)", 
                               placeholder="e.g., unveiling my latest tech masterpiece", height=120)
-    submit_button = st.form_submit_button(label="Engage Hyperdrive")
+    submit_button = st.form_submit_button(label="Engage Hyperdrive ⚡")
 
 if submit_button:
     if niche and product_name:
-        optimizer = InstaTrendOptimizer(niche, product_name, description if description else None)
-        result = optimizer.optimize()
-        st.success("🌌 Hyperdrive Engaged! Post Optimized!")
+        # Loading Animation
+        with st.spinner("🔄 Engaging Hyperdrive..."):
+            time.sleep(2)  # Simulate processing
+            optimizer = InstaTrendOptimizer(niche, product_name, description if description else None)
+            result = optimizer.optimize()
         
-        st.subheader("Transmission (Caption)")
+        st.success("🌌 Hyperdrive Engaged! Post Optimized! 🚀")
+        
+        st.subheader("Transmission (Caption) 📡")
         st.markdown(f"<div class='output-box'>{result['caption']}</div>", unsafe_allow_html=True)
+        if st.button("Copy Caption", key="copy_caption", help="Copy to clipboard"):
+            st.markdown(f"""
+                <script>
+                navigator.clipboard.writeText("{result['caption']}");
+                alert("Caption copied to clipboard!");
+                </script>
+            """, unsafe_allow_html=True)
         
-        st.subheader("Quantum Tags (Hashtags)")
+        st.subheader("Quantum Tags (Hashtags) 🔗")
         st.markdown(f"<div class='output-box'>{' '.join(result['hashtags'])}</div>", unsafe_allow_html=True)
+        if st.button("Copy Hashtags", key="copy_hashtags"):
+            st.markdown(f"""
+                <script>
+                navigator.clipboard.writeText("{' '.join(result['hashtags'])}");
+                alert("Hashtags copied to clipboard!");
+                </script>
+            """, unsafe_allow_html=True)
         
-        st.subheader("SEO Nebula (Keywords)")
+        st.subheader("SEO Nebula (Keywords) 🌠")
         st.markdown(f"<div class='output-box'>{' '.join(result['seo_keywords'])}</div>", unsafe_allow_html=True)
+        if st.button("Copy SEO Keywords", key="copy_seo"):
+            st.markdown(f"""
+                <script>
+                navigator.clipboard.writeText("{' '.join(result['seo_keywords'])}");
+                alert("SEO Keywords copied to clipboard!");
+                </script>
+            """, unsafe_allow_html=True)
         
-        st.subheader("Algorithm Matrix")
+        st.subheader("Algorithm Matrix 📊")
         st.markdown(f"<div class='output-box'>"
                     f"Engagement Core: {result['algorithm_insight']['engagement_score']}<br>"
                     f"Reach Velocity: {result['algorithm_insight']['reach_potential']}<br>"
-                    f"Command: {result['algorithm_insight']['recommendation']}"
+                    f"Command: {result['algorithm_insight']['recommendation']}<br>"
+                    f"Pro Tip: {result['algorithm_insight']['tip']}"
                     f"</div>", unsafe_allow_html=True)
         
         st.write(f"Locked for {id_type} unit: @{username}", unsafe_allow_html=True)
     else:
-        st.error("Core systems require Niche and Product Name input!")
+        st.error("Core systems require Niche and Product Name input! ⚠️")
 
 st.markdown("<hr><p style='text-align: center; color: #ffcc00;'>Crafted in the Cosmos for Instagram Pioneers 🌠</p>", unsafe_allow_html=True)
